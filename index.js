@@ -35,6 +35,9 @@ Sentry.init({
     // We recommend adjusting this value in production
     tracesSampleRate: 1.0,
   });
+app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.tracingHandler());
+
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"))
@@ -45,7 +48,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/carts', cartRoutes);
 app.use('/api/stripe', stripeRoute);
 
-
+app.use(Sentry.Handlers.errorHandler());
 app.listen(5000, ()=>{
     console.log("Backend running")
 })
