@@ -47,7 +47,12 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/carts', cartRoutes);
 app.use('/api/stripe', stripeRoute);
-
+app.get("/", function rootHandler(req, res) {
+    res.end("Hello world!");
+  });
+  app.get("/debug-sentry", function mainHandler(req, res) {
+    throw new Error("My first Sentry error!");
+  });
 app.use(Sentry.Handlers.errorHandler());
 app.listen(5000, ()=>{
     console.log("Backend running")
